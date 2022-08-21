@@ -19,73 +19,61 @@ interface IProps {
 
 const Detail = ({ postDetails }: IProps) => {
 
-  const [post, setPost] = useState(postDetails)
-  const [playing, setPlaying] = useState(false)
-  const [isVideoMuted, setIsVideoMuted] = useState(false)
-  const { userProfile }: any = useAuthStore()
-  const [comment, setComment] = useState('')
-  const [isPostingComment, setIsPostingComment] = useState(false)
-  
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const [post, setPost] = useState(postDetails);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isVideoMuted, setIsVideoMuted] = useState<boolean>(false);
+  const [isPostingComment, setIsPostingComment] = useState<boolean>(false);
+  const [comment, setComment] = useState<string>('');
 
-  const router = useRouter()
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const router = useRouter();
 
-  if(!post) return null;
+  const { userProfile }: any = useAuthStore();
 
   const onVideoClick = () => {
-    if(playing) {
-      videoRef?.current?.pause()
-      setPlaying(false)
+    if (isPlaying) {
+      videoRef?.current?.pause();
+      setIsPlaying(false);
     } else {
-      videoRef?.current?.play()
-      setPlaying(true)
+      videoRef?.current?.play();
+      setIsPlaying(true);
     }
-  }
-    
-  useEffect(() => {  
-    if(post && videoRef?.current) {
-      videoRef.current.muted = isVideoMuted
-    } 
-  }, [post, isVideoMuted])
+  };
 
-  
-  if(post && videoRef?.current) {
-    videoRef.current.muted = isVideoMuted
-  } 
+  useEffect(() => {
+    if (post && videoRef?.current) {
+      videoRef.current.muted = isVideoMuted;
+    }
+  }, [post, isVideoMuted]);
 
-  
   const handleLike = async (like: boolean) => {
-
-    if(userProfile) {
-
-      const { data } = await axios.put(`${BASE_URL}/api/post/like`, {
+    if (userProfile) {
+      const res = await axios.put(`${BASE_URL}/api/like`, {
         userId: userProfile._id,
         postId: post._id,
         like
-      })
-
-      setPost({ ...post, likes: data.likes })
-
+      });
+      setPost({ ...post, likes: res.data.likes });
     }
+  };
 
-  }
-
-  const addComment = async (e: any) => {
+  const addComment = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if(userProfile && comment) {
-      setIsPostingComment(true)
+    if (userProfile) {
+      if (comment) {
+        setIsPostingComment(true);
+        const res = await axios.put(`${BASE_URL}/api/post/${post._id}`, {
+          userId: userProfile._id,
+          comment,
+        });
 
-      const { data } = await axios.put(`${BASE_URL}/api/post/${post._id}`, {
-        userId: userProfile._id,
-        comment
-      });
-      
-      setPost({ ...post, comments: data.comments })
-      setComment("")
-      setIsPostingComment(false)
+        setPost({ ...post, comments: res.data.comments });
+        setComment('');
+        setIsPostingComment(false);
+      }
     }
-  }
+  };
   
   return (
     <div className="flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap">
@@ -107,7 +95,7 @@ const Detail = ({ postDetails }: IProps) => {
             </video>
           </div>
           <div className="absolute top-[50%] left-[50%] cursor-pointer">
-            {!playing && (
+            {!isPlaying && (
               <button onClick={onVideoClick}>
                 <BsFillPlayFill className='text-white text-6xl lg:text-8xl' />
               </button>
