@@ -1,19 +1,21 @@
 export const allPostsQuery = () => {
   const query = `*[_type == "post"] | order(_createdAt desc){
+    createdAt,
+    updatedAt,
     _id,
-     caption,
-       video{
-        asset->{
-          _id,
-          url
-        }
-      },
-      userId,
-      postedBy->{
+    caption,
+    video{
+      asset->{
         _id,
-        userName,
-        image
-      },
+        url
+      }
+    },
+    userId,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
     likes,
     comments[]{
       comment,
@@ -23,8 +25,8 @@ export const allPostsQuery = () => {
       userName,
       image
     },
-    }
-  }`;
+  }
+}`;
 
   return query;
 };
@@ -73,7 +75,7 @@ export const searchPostsQuery = (searchTerm: string | string[]) => {
       _id,
       userName,
       image
-    },
+    },  
 likes,
     comments[]{
       comment,

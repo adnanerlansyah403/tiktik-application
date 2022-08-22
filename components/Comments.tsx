@@ -27,7 +27,7 @@ const Comments = ({ comment, setComment, addComment, comments, isPostingComment 
   const { userProfile, allUsers }: any = useAuthStore()
 
   return (
-    <div className="border-t-2 border-gray-200 pt-4 px-10 bg-[#F8F8F8] border-b-2 lg:pb-0 pb-[100px]">
+    <div className="border-t-2 border-gray-200 pt-4 px-10 bg-[#F8F8F8] lg:pb-0 pb-[100px]">
       <div className="overflow-scroll lg:h-[475px]">
         {comments?.length > 0 ? (
           comments.map((comment, index) => (
@@ -77,8 +77,8 @@ const Comments = ({ comment, setComment, addComment, comments, isPostingComment 
       </div>
 
       {userProfile && (
-        <div className='absolute bottom-0 left-0 pb-6 px-2 md:px-10'>
-          <form onSubmit={addComment} className="flex gap-4">
+        <div className='absolute bottom-0 left-0 pb-6 px-2 md:px-3'>
+          <form onSubmit={addComment} className="flex gap-4 relative top-[15px]">
             <input type="text" 
               value={comment}
               onChange={(e) => setComment(e.target.value)}

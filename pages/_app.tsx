@@ -24,7 +24,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Head>
           <title>TikTik</title>
         </Head>
-        <div className='flex gap-6 md:gap-20'>
+        <div className='flex gap-3 md:gap-18 lg:gap-20'>
           <div className='h-[92vh] overflow-hidden xl:hover:overflow-auto'>
             <Sidebar />
           </div>

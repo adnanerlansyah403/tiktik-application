@@ -9,6 +9,7 @@ import useAuthStore from '../store/authStore'
 import { client } from "../utils/client"
 import { topics } from '../utils/constants'
 import { BASE_URL } from './../utils/index';
+import format from "date-format"
 
 const Upload = () => {
 
@@ -73,7 +74,10 @@ const Upload = () => {
           _ref: userProfile?._id,
         },
         topic,
+        createdAt: format('yyyy-MM-dd hh:mm', new Date()),
+        updatedAt: format('yyyy-MM-dd hh:mm', new Date()),
       };
+
 
       await axios.post(`${BASE_URL}/api/post`, doc);
         
@@ -89,7 +93,7 @@ const Upload = () => {
             <p className="text-2xl font-bold">Upload Video</p>
             <p className="text-md text-gray-400 mt-1">Post a video to your account</p>   
           </div>
-          <div className='border-dashed border-4 rounded-xl border-gray-200 flex flex-col justify-center items-center outline-none mt-10 w-[260px] h-[460px] p-1 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
+          <div className='border-dashed border-4 rounded-xl border-gray-200 flex flex-col justify-center items-center outline-none mt-10 w-[260px] h-[480px] p-1 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
             {isLoading ? (
               <p>Uploading...</p>
             ) : (
@@ -97,7 +101,7 @@ const Upload = () => {
                 {videoAsset ? (
                   <div>
                     <video
-                      className='rounded-xl h-[462px] mt-16 bg-black'
+                      className='rounded-xl h-[462px] bg-black'
                       controls
                       loop
                       src={videoAsset.url}

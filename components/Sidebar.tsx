@@ -19,15 +19,15 @@ const Sidebar = () => {
 
 
   return (
-    <div>
+    <div className="border-r-2 border-gray-100 xl:border-0 h-full px-2 py-2">
       <div
         className='block xl:hidden m-2 ml-4 mt-3 text-xl'
         onClick={() => setShowSidebar((prev) => !prev)}
       >
-        {showSidebar ? <ImCancelCircle /> : <AiOutlineMenu />}
+        {showSidebar ? <ImCancelCircle className='text-center ml-[13px] mt-4 cursor-pointer hover:text-gray-400 transition duration-300 ease' /> : <AiOutlineMenu className="cursor-pointer hover:text-gray-400 transition duration-300 ease" />}
       </div>
       {showSidebar && (
-          <div className='xl:w-400 w-20 flex flex-col justify-start mb-10 border-r-2 border-gray-100 xl:border-0 p-3'>
+          <div className='xl:w-400 w-20 flex flex-col justify-start mb-10 px-4 py-3'>
             <div className='xl:border-b-2 border-gray-200 xl:pb-4'>
               <Link href={'/'}>
                 <div className={normalLink}>

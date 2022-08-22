@@ -12,6 +12,8 @@ import { Video } from './../../types';
 import useAuthStore from './../../store/authStore';
 import LikeButton from './../../components/LikeButton';
 import Comments from './../../components/Comments';
+import { timeDiff } from 'time-diff-for-humans';
+import { BiCommentDetail } from 'react-icons/bi';
 
 interface IProps {
   postDetails: Video
@@ -48,7 +50,7 @@ const Detail = ({ postDetails }: IProps) => {
 
   const handleLike = async (like: boolean) => {
     if (userProfile) {
-      const res = await axios.put(`${BASE_URL}/api/like`, {
+      const res = await axios.put(`${BASE_URL}/api/post/like`, {
         userId: userProfile._id,
         postId: post._id,
         like
@@ -88,23 +90,24 @@ const Detail = ({ postDetails }: IProps) => {
             <video 
               ref={videoRef}
               loop
+              controls
               onClick={onVideoClick}
               src={post.video.asset.url}
               className="h-full cursor"
             >
             </video>
           </div>
-          <div className="absolute top-[50%] left-[50%] cursor-pointer">
+          {/* <div className="absolute top-[50%] left-[50%] -translate-x-[-50%] cursor-pointer">
             {!isPlaying && (
               <button onClick={onVideoClick}>
                 <BsFillPlayFill className='text-white text-6xl lg:text-8xl' />
               </button>
             )}
-          </div>
+          </div> */}
         </div>
 
         <div className="absolute bottom-5 lg:bottom-10 right-5 lg:right-10 cursor-pointer">
-          {isVideoMuted ? (
+          {/* {isVideoMuted ? (
             <button onClick={() => setIsVideoMuted(false)}>
               <HiVolumeOff className='text-white text-2xl lg:text-4xl' />
             </button>
@@ -112,7 +115,7 @@ const Detail = ({ postDetails }: IProps) => {
             <button onClick={() => setIsVideoMuted(true)}>
               <HiVolumeUp className='text-white text-2xl lg:text-4xl' />
             </button>
-          )}
+          )} */}
         </div>
       </div>
 
@@ -151,7 +154,7 @@ const Detail = ({ postDetails }: IProps) => {
           
           <p className="px-8 mt-3 text-lg text-gray-600">{post.caption}</p>
           
-          <div className="mt-10 px-10">
+          <div className="flex gap-6 mt-5 px-3 pb-3">
             {userProfile && (
               <LikeButton 
                 likes={post.likes}
@@ -159,6 +162,14 @@ const Detail = ({ postDetails }: IProps) => {
                 handleDislike={() => handleLike(false)}
               />
             )}
+            <div className='flex gap-6'>
+              <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
+                <BiCommentDetail className="text-xl md:text-2xl hover:text-gray-400" />
+                <p className="text-md font-semibold">
+                  {post.comments?.length | 0}                                                              
+                </p>
+              </div>
+            </div>
           </div>
 
           <Comments 

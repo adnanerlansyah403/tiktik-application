@@ -48,5 +48,21 @@ export default {
       title: 'Topic',
       type: 'string',
     },
+    {
+      name: 'createdAt',
+      title: 'CreatedAt',
+      type: 'datetime',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+      }
+    },
+    {
+      name: 'updatedAt',
+      title: 'UpdatedAt',
+      type: 'datetime',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+      }
+    }
   ],
 };

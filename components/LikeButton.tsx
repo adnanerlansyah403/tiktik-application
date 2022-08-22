@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { MdFavorite } from "react-icons/md";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 
 import useAuthStore from "../store/authStore";
 
@@ -24,18 +24,20 @@ const LikeButton = ({ likes, handleLike, handleDislike }: IProps) => {
   }, [filterLikes, likes])
 
   return (
-    <div className='flex gap-6'>
+    <div className='flex gap-6 ml-5'>
       <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
         {alreadyLiked ? (
-          <div className='bg-primary rounded-full p-2 md:p-4 text-[#F51997]' onClick={handleDislike}>
-            <MdFavorite className="text-lg md:text-2xl" />
-          </div>
+          <MdOutlineFavoriteBorder 
+            onClick={handleDislike}
+            className="text-xl md:text-2xl text-[#F51997] hover:text-gray-400" 
+          />
         ) : (
-          <div className='bg-primary rounded-full p-2 md:p-4' onClick={handleLike}>
-            <MdFavorite className="text-lg md:text-2xl" />
-          </div>
+          <MdOutlineFavoriteBorder 
+            onClick={handleLike}
+            className="text-xl md:text-2xl hover:text-gray-400" 
+          />
         )}
-        <p className="text-md font-semibold">
+        <p className={`text-md font-semibold ${likes?.length ? 'text-[#F51997]' : ''}`}>
           {likes?.length | 0}
         </p>
       </div>
