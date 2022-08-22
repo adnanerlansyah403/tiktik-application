@@ -6,6 +6,8 @@ import { GoVerified } from 'react-icons/go'
 import useAuthStore from '../store/authStore'
 import NoResults from './NoResults'
 import { IUser } from '../types'
+import { GoogleLogin } from '@react-oauth/google';
+import { createOrGetUser } from './../utils/index';
 
 interface IProps {
   isPostingComment: Boolean;
@@ -24,11 +26,11 @@ interface IComment {
 
 const Comments = ({ comment, setComment, addComment, comments, isPostingComment }: IProps) => {
 
-  const { userProfile, allUsers }: any = useAuthStore()
+  const { userProfile, allUsers, addUser }: any = useAuthStore()
 
   return (
     <div className="border-t-2 border-gray-200 pt-4 px-10 bg-[#F8F8F8] lg:pb-0 pb-[100px]">
-      <div className="overflow-scroll lg:h-[475px]">
+      <div className="overflow-scroll lg:h-[455px]">
         {comments?.length > 0 ? (
           comments.map((comment, index) => (
             <>
@@ -76,9 +78,9 @@ const Comments = ({ comment, setComment, addComment, comments, isPostingComment 
         )}
       </div>
 
-      {userProfile && (
+      {userProfile ? (
         <div className='absolute bottom-0 left-0 pb-6 px-2 md:px-3'>
-          <form onSubmit={addComment} className="flex gap-4 relative top-[15px]">
+          <form onSubmit={addComment} className="flex gap-4 relative top-[10px]">
             <input type="text" 
               value={comment}
               onChange={(e) => setComment(e.target.value)}
@@ -92,6 +94,16 @@ const Comments = ({ comment, setComment, addComment, comments, isPostingComment 
               {isPostingComment ? 'Commenting...' : 'Comment'}
             </button>
           </form>
+        </div>
+      ) : (
+        <div className='absolute bottom-10 left-0 md:px-3'>
+          <p className="mb-2 text-gray-500 text-md font-semibold">
+            Want to comment?, then to join the conversation.
+          </p>
+          <GoogleLogin 
+            onSuccess={(response) => createOrGetUser(response, addUser)}
+            onError={() => console.log("error")}
+          />
         </div>
       )}
 

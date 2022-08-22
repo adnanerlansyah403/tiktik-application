@@ -58,7 +58,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   };
 
   return (
-    <div className='flex flex-col border-[2px] border-gray-200 pb-6 rounded-md'>
+    <div className='relative -left-[5px]flex flex-col border-[2px] border-gray-200 pb-6 rounded-md'>
       <div className=''>
         <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
           <div className="md:w-13 md:h-13 w-10 h-10">
@@ -91,11 +91,11 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
         </div>
       </div>
 
-      <div className='flex gap-4 relative mt-1'>
+      <div className='flex gap-4 relative mt-2'>
         <div 
           onMouseEnter={() => {setIsHover(true)}}
           onMouseLeave={() => {setIsHover(false)}}
-          className='relative w-[100%] h-[300px] md:h-[400px] lg:h-[460px] cursor-pointer '>
+          className='relative w-[100%] h-[300px] md:h-[400px] cursor-pointer'>
           <Link href={`/detail/${post._id}`}>
             <video 
               ref={videoRef}
@@ -134,25 +134,27 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
       </div>
       <div className="mt-6 md:mt-0 flex items-center gap-4">
         {userProfile && (
-          <LikeButton 
-            likes={posted.likes}
-            handleLike={() => handleLike(true)}
-            handleDislike={() => handleLike(false)}
-          />
+          <>
+            <LikeButton 
+              likes={posted.likes}
+              handleLike={() => handleLike(true)}
+              handleDislike={() => handleLike(false)}
+            />
+            <Link href={`/detail/${post._id}`}>
+            <div className='flex gap-6'>
+              <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
+                <BiCommentDetail className="text-xl md:text-2xl hover:text-gray-400" />
+                <p className="text-md font-semibold">
+                  {posted.comments?.length | 0}                                                              
+                </p>
+              </div>
+            </div>
+            </Link>
+          </>
         )}
-        <Link href={`/detail/${post._id}`}>
-        <div className='flex gap-6'>
-          <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
-            <BiCommentDetail className="text-xl md:text-2xl hover:text-gray-400" />
-            <p className="text-md font-semibold">
-              {posted.comments?.length | 0}                                                              
-            </p>
-          </div>
-        </div>
-        </Link>
       </div>
 
-      <div className='mt-3 ml-6'>
+      <div className='mt-4 ml-6'>
        <p className='text-gray-500 font-semibold font-poppins'>
         {posted.createdAt ? timeDiff(posted.createdAt) : ''}
        </p>

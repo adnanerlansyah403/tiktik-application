@@ -15,20 +15,20 @@ const Sidebar = () => {
 
   const userProfile = false
 
-  const normalLink = `flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#f51997] rounded`
+  const normalLink = `flex items-center gap-3 hover:bg-primary py-3 justify-center md:justify-self-auto xl:justify-start cursor-pointer font-semibold text-[#f51997] rounded`
 
 
   return (
-    <div className="border-r-2 border-gray-100 xl:border-0 h-full px-2 py-2">
+    <div className={`py-2 ${!showSidebar && 'px-2'} border-r-2 border-gray-100 xl:border-0 h-full`}>
       <div
-        className='block xl:hidden m-2 ml-4 mt-3 text-xl'
+        className='flex justify-center mb-3 xl:hidden text-2xl'
         onClick={() => setShowSidebar((prev) => !prev)}
       >
-        {showSidebar ? <ImCancelCircle className='text-center ml-[13px] mt-4 cursor-pointer hover:text-gray-400 transition duration-300 ease' /> : <AiOutlineMenu className="cursor-pointer hover:text-gray-400 transition duration-300 ease" />}
+        {showSidebar ? <ImCancelCircle className='mt-4 cursor-pointer hover:text-gray-400 transition duration-300 ease' /> : <AiOutlineMenu className="cursor-pointer hover:text-gray-400 transition duration-300 ease" />}
       </div>
       {showSidebar && (
-          <div className='xl:w-400 w-20 flex flex-col justify-start mb-10 px-4 py-3'>
-            <div className='xl:border-b-2 border-gray-200 xl:pb-4'>
+          <div className='xl:w-400 w-15 md:w-20 mb-10 flex flex-col items-center justify-center md:block'>
+            <div className='xl:border-b-2 border-gray-200 xl:pb-4 hover:bg-primary xl:border-gray-300 px-2 py-2'>
               <Link href={'/'}>
                 <div className={normalLink}>
                   <AiFillHome className='text-2xl' />

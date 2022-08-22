@@ -30,7 +30,7 @@ const Detail = ({ postDetails }: IProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
 
-  const { userProfile }: any = useAuthStore();
+  const { userProfile, addUser, removeUser }: any = useAuthStore();
 
   const onVideoClick = () => {
     if (isPlaying) {
@@ -156,20 +156,22 @@ const Detail = ({ postDetails }: IProps) => {
           
           <div className="flex gap-6 mt-5 px-3 pb-3">
             {userProfile && (
-              <LikeButton 
-                likes={post.likes}
-                handleLike={() => handleLike(true)}
-                handleDislike={() => handleLike(false)}
-              />
+              <>
+                <LikeButton 
+                  likes={post.likes}
+                  handleLike={() => handleLike(true)}
+                  handleDislike={() => handleLike(false)}
+                />
+                <div className='flex gap-6'>
+                  <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
+                    <BiCommentDetail className="text-xl md:text-2xl hover:text-gray-400" />
+                    <p className="text-md font-semibold">
+                      {post.comments?.length | 0}                                                              
+                    </p>
+                  </div>
+                </div>
+              </>
             )}
-            <div className='flex gap-6'>
-              <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
-                <BiCommentDetail className="text-xl md:text-2xl hover:text-gray-400" />
-                <p className="text-md font-semibold">
-                  {post.comments?.length | 0}                                                              
-                </p>
-              </div>
-            </div>
           </div>
 
           <Comments 

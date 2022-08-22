@@ -20,7 +20,7 @@ const SuggestedAccounts = () => {
         Suggested Accounts
       </p>
 
-      <div>
+      <div className="flex flex-col items-center justify-center lg:items-start">
         {allUsers.slice(0, 6).map((user: IUser) => (
           <Link href={`/profile/${user._id}`} key={user._id} className="">
             <div className="flex gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded">
