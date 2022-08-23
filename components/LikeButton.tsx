@@ -29,15 +29,15 @@ const LikeButton = ({ likes, handleLike, handleDislike }: IProps) => {
         {alreadyLiked ? (
           <MdOutlineFavoriteBorder 
             onClick={handleDislike}
-            className="text-xl md:text-2xl text-[#F51997] hover:text-gray-400" 
+            className="text-xl md:text-2xl hover:text-gray-400" 
           />
         ) : (
           <MdOutlineFavoriteBorder 
             onClick={handleLike}
-            className="text-xl md:text-2xl hover:text-gray-400" 
+            className={`text-xl ${likes?.length ? 'text-[#7fd492]' : ''} md:text-2xl hover:text-gray-400`} 
           />
         )}
-        <p className={`text-md font-semibold ${likes?.length ? 'text-[#F51997]' : ''}`}>
+        <p className={`text-md font-semibold ${likes?.length ? 'text-[#7fd492]' : ''}`}>
           {likes?.length | 0}
         </p>
       </div>

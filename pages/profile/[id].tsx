@@ -22,8 +22,8 @@ const Profile = ({ data }: IProps) => {
     const [showUserVideos, setShowUserVideos] = useState(true)
     const [videosList, setVideosList] = useState<Video[]>([])
 
-    const videos = showUserVideos ? 'border-b-2 border-[#F85997] text-[#F85997]' : 'text-gray-400'
-    const liked = !showUserVideos ? 'border-b-2 border-[#F85997] text-[#F85997]' : 'text-gray-400'
+    const videos = showUserVideos ? 'border-b-2 border-[#7fd492] text-[#7fd492]' : 'text-gray-400'
+    const liked = !showUserVideos ? 'border-b-2 border-[#7fd492] text-[#7fd492]' : 'text-gray-400'
 
     useEffect(() => {
         if(showUserVideos) {

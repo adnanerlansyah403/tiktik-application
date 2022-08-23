@@ -14,7 +14,7 @@ const Sidebar: NextPage = () => {
   const { pathname } = useRouter();
   const { fetchAllUsers, allUsers }: any = useAuthStore();
 
-  const activeLink = 'flex justify-start w-full gap-3 hover:bg-primary p-3 cursor-pointer font-semibold text-[#F51997] rounded';
+  const activeLink = 'flex justify-start w-full gap-3 hover:bg-primary p-3 cursor-pointer font-semibold text-[#7fd492] rounded';
 
   const normalLink = 'flex justify-start w-full gap-3 hover:bg-primary p-3 cursor-pointer font-semibold rounded';
 

@@ -20,8 +20,8 @@ const Search = ({ videos }: { videos: Video[] }) => {
     const { allUsers } = useAuthStore()
 
 
-    const accounts = isAccounts ? 'border-b-2 border-[#F85997] text-[#F85997]' : 'text-gray-400'
-    const isVideos = !isAccounts ? 'border-b-2 border-[#F85997] text-[#F85997]' : 'text-gray-400'
+    const accounts = isAccounts ? 'border-b-2 border-[#7fd492] text-[#7fd492]' : 'text-gray-400'
+    const isVideos = !isAccounts ? 'border-b-2 border-[#7fd492] text-[#7fd492]' : 'text-gray-400'
 
     const searchedAccounts = allUsers.filter((user: IUser) => user.userName.toLowerCase().includes(searchTerm.toLowerCase()))
 
