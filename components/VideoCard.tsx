@@ -58,7 +58,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   };
 
   return (
-    <div className='relative -left-[5px]flex flex-col border-[2px] border-gray-200 pb-6 rounded-md'>
+    <div className='relative flex flex-col border-[2px] border-gray-200 pb-6 rounded-md'>
       <div className=''>
         <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
           <div className="md:w-13 md:h-13 w-10 h-10">

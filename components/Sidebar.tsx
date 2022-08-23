@@ -19,9 +19,9 @@ const Sidebar = () => {
 
 
   return (
-    <div className={`py-2 ${!showSidebar && 'px-2'} border-r-2 border-gray-100 xl:border-0 h-full`}>
+    <div className={`py-2 ${!showSidebar && 'px-2'} border-r-2 border-gray-100 xl:border-0`}>
       <div
-        className='flex justify-center mb-3 xl:hidden text-2xl'
+        className='flex justify-end md:justify-center mr-4 md:mr-0 mb-3 xl:hidden text-2xl'
         onClick={() => setShowSidebar((prev) => !prev)}
       >
         {showSidebar ? <ImCancelCircle className='mt-4 cursor-pointer hover:text-gray-400 transition duration-300 ease' /> : <AiOutlineMenu className="cursor-pointer hover:text-gray-400 transition duration-300 ease" />}
