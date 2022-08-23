@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { FaCloudUploadAlt } from 'react-icons/fa'
 import { MdDelete } from "react-icons/md"
@@ -16,10 +16,13 @@ const Upload = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>()
   const [wrongFileType, setWrongFileType] = useState(false)
+  const [activeDiscard, setActiveDiscard] = useState(false)
   
   const [caption, setCaption] = useState('')
   const [topic, setTopic] = useState<String>(topics[0].name);
   const [savingPost, setSavingPost] = useState(false)
+
+  const inputPostRef = useRef<HTMLInputElement>(null)
 
   const userProfile: any = useAuthStore((state) => state.userProfile);
 
@@ -48,6 +51,8 @@ const Upload = () => {
           setVideoAsset(data);
           setIsLoading(false);
         });
+
+        setActiveDiscard(false)
     } else {
       setIsLoading(false);
       setWrongFileType(true);
@@ -85,15 +90,30 @@ const Upload = () => {
     }
   };
 
+  const handleDiscardPost = () => {
+    if(videoAsset) {
+      setVideoAsset(null)
+    } else {
+      setActiveDiscard(true)
+    }
+  }
+
   return (
-    <div className='flex w-full h-full absolute left-0 top-[60px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center'>
-      <div className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6">
+    <div className='flex w-full h-full relative mb-10 py-6 lg:py-20 bg-[#F8F8F8] rounded justify-center'>
+      <p className='absolute top-8 left-1/2 -translate-x-1/2 text-xl font-semibold text-poppins text-gray-600'>                       
+        Share your {` `}
+        <span className="text-green-400">
+          daily activities
+        </span> {` `}
+         here 😎         
+      </p>
+      <div className="bg-white rounded-lg xl:h-[70vh] flex gap-6 p-4 px-5 mt-4">
         <div className="">
           <div>
             <p className="text-2xl font-bold">Upload Video</p>
             <p className="text-md text-gray-400 mt-1">Post a video to your account</p>   
           </div>
-          <div className='border-dashed border-4 rounded-xl border-gray-200 flex flex-col justify-center items-center outline-none mt-10 w-[260px] h-[480px] p-1 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
+          <div className='border-dashed border-4 rounded-xl border-gray-200 flex flex-col justify-center items-center outline-none mt-6 w-[260px] h-[480px] p-1 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
             {isLoading ? (
               <p>Uploading...</p>
             ) : (
@@ -134,6 +154,7 @@ const Upload = () => {
                       name='upload-video'
                       onChange={(e) => uploadVideo(e)}
                       className='w-0 h-0'
+                      id="uploadVideo"
                     />
                   </label>  
                 )}
@@ -173,7 +194,7 @@ const Upload = () => {
           </select>   
           <div className="flex gap-6 mt-10">
               <button
-                onClick={() => {}}
+                onClick={handleDiscardPost}
                 type="button"
                 className='border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none cursor-pointer hover:bg-gray-100 hover:text-black'
               >
@@ -186,7 +207,14 @@ const Upload = () => {
               >
                 Post
               </button>
-          </div>           
+          </div>    
+          {activeDiscard && (
+            <>
+               <p className="text-red-400 text-md">
+                You still not upload the video
+               </p>
+            </>
+          )}    
         </div>    
       </div>
     </div>
