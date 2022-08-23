@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <div className='xl:w-[1200px] m-auto overflow-hidden h-[100vh]'>
         <Navbar />
         <Head>
-          <title>TikTik</title>
+          <title>CitCat Hijau Muda</title>
         </Head>
         <div className='flex gap-6 md:gap-14 lg:gap-20'>
           <div className='h-[92vh] overflow-hidden xl:hover:overflow-auto'>
