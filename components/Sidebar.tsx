@@ -1,51 +1,60 @@
-import React, { useState } from 'react'
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import GoogleLogin from 'react-google-login'
-import { AiFillHome, AiOutlineMenu } from 'react-icons/ai'
-import { ImCancelCircle } from 'react-icons/im'
-import Discover from './Discover';
+import React, { useState, useEffect } from 'react';
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { AiFillHome, AiOutlineMenu } from 'react-icons/ai';
+import { ImCancelCircle } from 'react-icons/im';
+
 import SuggestedAccounts from './SuggestedAccounts';
+import Discover from './Discover';
 import Footer from './Footer';
+import useAuthStore from '../store/authStore';
+const Sidebar: NextPage = () => {
+  const [showSidebar, setShowSidebar] = useState<Boolean>(true);
+  const { pathname } = useRouter();
+  const { fetchAllUsers, allUsers }: any = useAuthStore();
 
-const Sidebar = () => {
+  const activeLink = 'flex justify-start w-full gap-3 hover:bg-primary p-3 cursor-pointer font-semibold text-[#F51997] rounded';
 
-  const [showSidebar, setShowSidebar] = useState(true)
+  const normalLink = 'flex justify-start w-full gap-3 hover:bg-primary p-3 cursor-pointer font-semibold rounded';
 
-  const userProfile = false
-
-  const normalLink = `flex items-center gap-3 hover:bg-primary py-3 justify-center md:justify-self-auto xl:justify-start cursor-pointer font-semibold text-[#f51997] rounded`
-
+  window.addEventListener("resize", function() {
+    if(window.innerWidth >= 640) {
+      setShowSidebar(true)
+    }
+  })
 
   return (
-    <div className={`py-2 ${!showSidebar && 'px-2'} border-r-2 border-gray-100 xl:border-0`}>
+    <div className="flex flex-col items-center xl:w-400 w-20 h-full border-r-2 border-gray-100 xl:border-0">
       <div
-        className='flex justify-end md:justify-center mr-4 md:mr-0 mb-3 xl:hidden text-2xl'
-        onClick={() => setShowSidebar((prev) => !prev)}
+        className='xl:hidden my-3 m-0 p-0 mr-2 text-xl'
+        onClick={() => setShowSidebar(!showSidebar)}
       >
-        {showSidebar ? <ImCancelCircle className='mt-4 cursor-pointer hover:text-gray-400 transition duration-300 ease' /> : <AiOutlineMenu className="cursor-pointer hover:text-gray-400 transition duration-300 ease" />}
+        {showSidebar ? <ImCancelCircle /> : <AiOutlineMenu />}
       </div>
       {showSidebar && (
-          <div className='xl:w-400 w-15 md:w-20 mb-10 flex flex-col items-center justify-center md:block'>
-            <div className='xl:border-b-2 border-gray-200 xl:pb-4 hover:bg-primary xl:border-gray-300 px-2 py-2'>
-              <Link href={'/'}>
-                <div className={normalLink}>
-                  <AiFillHome className='text-2xl' />
-                  <span className='text-xl hidden xl:block'>
-                    For You
-                  </span>
-                </div>
-              </Link>
-            </div>
-
-            <Discover />  
-            <SuggestedAccounts />
-            <Footer />
+        <div className=' mb-10 p-3 xl:px-0'>
+          <div className='flex flex-col items-center xl:border-b-2 border-gray-200 xl:pb-4'>
+            <Link href='/'>
+              <div className={pathname === '/' ? activeLink : normalLink}>
+                <p className='text-2xl'>
+                  <AiFillHome />
+                </p>
+                <span className='capitalize text-xl hidden xl:block'>
+                  For You
+                </span>
+              </div>
+            </Link>
           </div>
+          
+          <Discover />
+          <SuggestedAccounts
+          />
+          <Footer />
+        </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
