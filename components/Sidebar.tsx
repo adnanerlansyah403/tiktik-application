@@ -25,7 +25,7 @@ const Sidebar: NextPage = () => {
   })
 
   return (
-    <div className="flex flex-col items-center xl:w-400 w-20 h-full border-r-2 border-gray-100 xl:border-0">
+    <div className="flex flex-col items-center xl:w-400 w-20 h-full border-r-2 border-gray-100 xl:border-0 overflow-auto">
       <div
         className='xl:hidden my-3 m-0 p-0 mr-2 text-xl'
         onClick={() => setShowSidebar(!showSidebar)}
